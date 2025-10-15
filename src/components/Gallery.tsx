@@ -45,41 +45,45 @@ export default function Gallery() {
     <>
       <ModalDetails id={id} />
 
-      {validArtworks.length === 0 ? (
-        <p className="mb-10 p-5 text-2xl">
-          Lade Daten...... Scheint nix mehr zu geben das dem Schema entspricht.
-          <br></br>
-          Gestern ging´s noch. Ich erwarte im Schema eine "Description"...
-        </p>
-      ) : (
-        validArtworks.map((artwork) => (
-          <article
-            onClick={() => {
-              setId(artwork.id);
-            }}
-            key={artwork.id}
-            className="p-5  m-5 bg-white text-black rounded-xl"
-          >
-            <h3 className="font-bold text-xl">{artwork.title}</h3>
-            <p className="mb-5">{artwork.artist_display}</p>
-            <div className="grid sm:[grid-template-columns:30%_1fr] gap-5">
-              <div>
-                <img
-                  src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
-                  alt={artwork.thumbnail?.alt_text || "Vorschau"}
-                  className="h-auto w-auto object-contain max-h-[300px]"
-                />
+      <div className="grid xl:grid-cols-2">
+        {validArtworks.length === 0 ? (
+          <p className="mb-10 p-5 text-2xl">
+            Lade Daten...... Scheint nix mehr zu geben das dem Schema
+            entspricht.
+            <br></br>
+            Gestern ging´s noch. Ich erwarte im Schema eine "Description"...
+          </p>
+        ) : (
+          validArtworks.map((artwork) => (
+            <article
+              onClick={() => {
+                setId(artwork.id);
+              }}
+              key={artwork.id}
+              className="p-5 pb-10 m-5 bg-white text-black rounded-xl"
+            >
+              <h3 className="font-bold text-2xl pb-3 font-serif">
+                {artwork.title}
+              </h3>
+              <p className="mb-5">{artwork.artist_display}</p>
+              <div className="grid sm:[grid-template-columns:30%_1fr] gap-5">
+                <div>
+                  <img
+                    src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
+                    alt={artwork.thumbnail?.alt_text || "Vorschau"}
+                    className="h-auto w-auto object-contain max-h-[300px]"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-bold">Beschreibung:</h4>
+                  {/* Hier werden zusätzlich HTML Tags aus der description entfernt: */}
+                  {artwork.description?.replace(/<[^>]+>/g, "") ?? ""}
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold">Beschreibung:</h4>
-                {/* Hier werden zusätzlich HTML Tags aus der description entfernt: */}
-                {artwork.description?.replace(/<[^>]+>/g, "") ?? ""}
-              </div>
-            </div>
-          </article>
-        ))
-      )}
-
+            </article>
+          ))
+        )}
+      </div>
       <div className="p-5 bg-black text-white">
         Es folgen Kunstwerke mit unvollständigem Datensatz - Kunstwerke mit
         fehlender "Description":
@@ -95,7 +99,7 @@ export default function Gallery() {
                 setId(invalidArtwork.article.id);
               }}
               key={invalidArtwork.article.id}
-              className="p-5 m-5 bg-white text-black rounded-xl grid grid-cols-[200px_1fr] cursor-pointer"
+              className="hyphens-auto font-serif p-5 m-5 bg-white text-black rounded-xl grid sm:grid-cols-[120px_1fr] cursor-pointer"
             >
               <div className="">
                 <img
