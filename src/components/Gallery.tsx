@@ -81,8 +81,8 @@ export default function Gallery() {
       )}
 
       <div className="p-5 bg-black text-white">
-        Es folgen Kunstwerke mit unvollständigem Datensatz (Bezüglich der
-        fehlenden "Description"):
+        Es folgen Kunstwerke mit unvollständigem Datensatz - Kunstwerke mit
+        fehlender "Description":
       </div>
       <div className="grid grid-cols-2">
         {invalidArtworks.length === 0 ? (
