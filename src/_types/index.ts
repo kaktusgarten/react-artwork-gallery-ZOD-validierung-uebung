@@ -1,7 +1,10 @@
 import * as z from "zod";
 import { ArtworkSchema, ArtworksSchema } from "../_schemas";
 
-// Braucht nicht mehr, das mach jetzt General ZOD mit z.infer
+// Braucht nicht mehr, das mach jetzt General "ZOD" mit z.infer
+// Siehe: https://schurken.fandom.com/de/wiki/General_Zod_(DC_Comics) :-))
+// Nein Im Ernst: https://zod.dev/basics
+//
 // type ArtworkType = {
 //   artist_display: string;
 //   description: string;

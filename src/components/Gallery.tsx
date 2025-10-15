@@ -51,14 +51,29 @@ export default function Gallery() {
             key={artwork.id}
             className="p-5  m-5 bg-white text-black rounded-xl"
           >
-            <h3 className="font-bold">{artwork.title}</h3>
-            <p>{artwork.artist_display}</p>
+            <h3 className="font-bold text-xl">{artwork.title}</h3>
+            <p className="mb-5">{artwork.artist_display}</p>
+            <div className="grid sm:[grid-template-columns:30%_1fr] gap-5">
+              <div>
+                <img
+                  src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
+                  alt={artwork.thumbnail?.alt_text || "Vorschau"}
+                  className="h-auto w-auto object-contain max-h-[300px]"
+                />
+              </div>
+              <div>
+                <h4 className="font-bold">Beschreibung:</h4>
+                {/* Hier werden zusätzlich HTML Tags aus der description entfernt: */}
+                {artwork.description?.replace(/<[^>]+>/g, "") ?? ""}
+              </div>
+            </div>
           </article>
         ))
       )}
 
       <div className="border p-5">
-        Kunstwerke mit unvollständigem Datensatz (Bezüglich der fehlenden "Description"):
+        Kunstwerke mit unvollständigem Datensatz (Bezüglich der fehlenden
+        "Description"):
       </div>
 
       {invalidArtworks.length === 0 ? (
@@ -69,7 +84,9 @@ export default function Gallery() {
             key={invalidArtwork.article.id}
             className="p-5  m-5 bg-white text-black rounded-xl"
           >
-            <h3 className="font-bold">{invalidArtwork.article.title}</h3>
+            <h3 className="font-bold text-xl">
+              {invalidArtwork.article.title}
+            </h3>
             <p>{invalidArtwork.article.artist_display}</p>
           </article>
         ))

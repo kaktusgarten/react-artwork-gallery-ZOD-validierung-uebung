@@ -18,6 +18,4 @@ export const ArtworkSchema = z.object({
     .optional(),
 });
 
-//   description: z.string().nullable().optional(),
-
 export const ArtworksSchema = z.array(ArtworkSchema);
