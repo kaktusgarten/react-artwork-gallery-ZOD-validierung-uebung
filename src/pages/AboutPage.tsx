@@ -14,7 +14,7 @@ export default function AboutPage() {
               <li>React</li>
               <li>React-Router</li>
               <li>TailwindCss</li>
-              <li>DailyUi</li>
+              <li>DailyUi - Mit Theme Manipulation (App.css)</li>
               <li>React Context API</li>
               <li>Prodected-Layout</li>
               <li>ZOD</li>

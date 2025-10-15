@@ -6,7 +6,7 @@ export default function MainLayout() {
     <>
       <div className="page flex flex-col min-h-screen">
         <div className="py-4 bg-primary">
-          <div className="container m-auto text-primary-content">
+          <div className="container m-auto">
             <Header></Header>
           </div>
         </div>
@@ -16,7 +16,7 @@ export default function MainLayout() {
         </div>
 
         <div className="py-4 bg-primary ">
-          <div className="container m-auto text-primary-content">
+          <div className="container m-auto">
             <Footer></Footer>
           </div>
         </div>
