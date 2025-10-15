@@ -46,7 +46,11 @@ export default function Gallery() {
       <ModalDetails id={id} />
 
       {validArtworks.length === 0 ? (
-        <p className="mb-10 p-5">Lade Daten...</p>
+        <p className="mb-10 p-5 text-2xl">
+          Lade Daten...... Scheint nix mehr zu geben das dem Schema entspricht.
+          <br></br>
+          Gestern ging´s noch. Ich erwarte im Schema eine "Description"...
+        </p>
       ) : (
         validArtworks.map((artwork) => (
           <article
