@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import type { ArtworkType } from "../_types";
 import GallerySearchForm from "./GallerySearchForm";
+import ModalDetails from "./ModalDetails";
 
 export default function GallerySearch() {
   //
   // States
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<ArtworkType[] | null>(null);
+  const [id, setId] = useState<number | null>(null); // id des geklickten Suchergebnisses
   //
   // Search Action
   const searchAction = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,11 +40,17 @@ export default function GallerySearch() {
         <div>
           <GallerySearchForm searchAction={searchAction} />
         </div>
+
+        <ModalDetails id={id} />
+
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 p-2">
           {searchResult?.map((artwork) => (
             <article
+              className="p-5 m-2 bg-white text-black rounded-xl cursor-pointer"
+              onClick={() => {
+                setId(artwork.id);
+              }}
               key={artwork.id}
-              className="p-5 m-2 bg-white text-black rounded-xl"
             >
               <h3 className="text-md font-bold">{artwork.title}</h3>
               <p>ID: {artwork.id}</p>
