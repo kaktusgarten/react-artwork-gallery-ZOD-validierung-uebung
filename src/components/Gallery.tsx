@@ -76,21 +76,22 @@ export default function Gallery() {
         ))
       )}
 
-      <div className="border p-5">
-        Kunstwerke mit unvollständigem Datensatz (Bezüglich der fehlenden
-        "Description"):
+      <div className="p-5 bg-black text-white">
+        Es folgen Kunstwerke mit unvollständigem Datensatz (Bezüglich der
+        fehlenden "Description"):
       </div>
       <div className="grid grid-cols-2">
         {invalidArtworks.length === 0 ? (
           <p>Lade Daten...</p>
         ) : (
           invalidArtworks.map((invalidArtwork) => (
+            // ARTICLE CARD
             <article
               onClick={() => {
                 setId(invalidArtwork.article.id);
               }}
               key={invalidArtwork.article.id}
-              className="p-5 m-5 bg-white text-black rounded-xl grid grid-cols-[200px_1fr]"
+              className="p-5 m-5 bg-white text-black rounded-xl grid grid-cols-[200px_1fr] cursor-pointer"
             >
               <div className="">
                 <img
