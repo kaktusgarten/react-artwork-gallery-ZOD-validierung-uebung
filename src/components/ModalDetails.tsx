@@ -7,6 +7,7 @@ export default function ModalDetails({ id }: { id: number | null }) {
   useEffect(() => {
     if (!id || !infoModal.current) return;
 
+    // API CALL
     const getArtworkDetails = async () => {
       try {
         const res = await fetch(`https://api.artic.edu/api/v1/artworks/${id}`);
@@ -26,15 +27,17 @@ export default function ModalDetails({ id }: { id: number | null }) {
       <dialog ref={infoModal} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-5">Details</h3>
-          {detailInfos?.data.image_id ? (
-            <img
-              src={`https://www.artic.edu/iiif/2/${detailInfos.data.image_id}/full/843,/0/default.jpg`}
-              alt={detailInfos.data.title || "Artwork"}
-            />
-          ) : (
-            <p>Kein Bild verfügbar</p>
-          )}
-
+          <div className="[ imageWrapper ] h-[330px] bg-black p-2 flex items-center">
+            {detailInfos?.data.image_id ? (
+              <img
+                className="mx-auto max-h-[300px] w-auto "
+                src={`https://www.artic.edu/iiif/2/${detailInfos.data.image_id}/full/843,/0/default.jpg`}
+                alt={detailInfos.data.title || "Artwork"}
+              />
+            ) : (
+              <p className="text-white">Kein Bild verfügbar</p>
+            )}
+          </div>
           <p className="pt-4">Infos zum Bild ID: {id}</p>
           <p className="py-4 font-bold text-xl">
             <span className="italic text-amber-100 pr-5">Titel:</span>{" "}
@@ -53,7 +56,14 @@ export default function ModalDetails({ id }: { id: number | null }) {
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button
+                className="btn"
+                onClick={() => {
+                  setDetailInfos(null);
+                }}
+              >
+                Close
+              </button>
             </form>
           </div>
         </div>
