@@ -35,7 +35,6 @@ export default function Gallery() {
       setValidArtworks(valids);
       setInvalidArtworks(invalids);
 
-      console.log(invalids);
     };
 
     fetchArtworksData();

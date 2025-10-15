@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import type { ArtworkType } from "../_types";
-import { ArtworkSchema } from "../_schemas";
+import GallerySearchForm from "./GallerySearchForm";
 
 export default function GallerySearch() {
   //
   // States
-  const [searchTerms, setSearchTerms] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResult, setSearchResult] = useState<ArtworkType[] | null>(null);
   //
   // Search Action
@@ -13,60 +13,42 @@ export default function GallerySearch() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const search: any = formData.get("search") ?? "";
-    setSearchTerms(search);
+    setSearchTerm(search);
   };
   //
   // use Effekt
   useEffect(() => {
-    if (!searchTerms) return; // Abbrechen, falls noch keine Suche (Damit der useEffect nicht initial sofort los geht !)
+    if (!searchTerm) return; // Abbrechen, falls noch keine Suche (Damit der useEffect nicht initial sofort los geht !)
     const getSearch = async () => {
       try {
         const res = await fetch(
-          `https://api.artic.edu/api/v1/artworks/search?q=${searchTerms}`
+          `https://api.artic.edu/api/v1/artworks/search?q=${searchTerm}`
         );
         const resData = await res.json();
         console.log(resData);
+        setSearchResult(resData.data);
       } catch (error) {}
     };
     getSearch();
-  }, [searchTerms]);
+  }, [searchTerm]);
 
   return (
     <>
       <div>
-        <form onSubmit={searchAction}>
-          <fieldset className="fieldset p-4 md:max-w-3/4 flex gap-5">
-            <label className="input">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </g>
-              </svg>
-              <input
-                type="search"
-                name="search"
-                required
-                placeholder="Search"
-                className=""
-              />
-            </label>
-
-            <button type="submit" className="btn btn-neutral w-1/4">
-              Suche
-            </button>
-          </fieldset>
-        </form>
+        <div>
+          <GallerySearchForm searchAction={searchAction} />
+        </div>
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 p-2">
+          {searchResult?.map((artwork) => (
+            <article
+              key={artwork.id}
+              className="p-5 m-2 bg-white text-black rounded-xl"
+            >
+              <h3 className="text-md font-bold">{artwork.title}</h3>
+              <p>ID: {artwork.id}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </>
   );

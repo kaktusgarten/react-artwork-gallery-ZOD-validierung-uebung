@@ -1,4 +1,10 @@
-export default function GallerySearchForm({ searchAction }){
+type GallerySearchProps = {
+  searchAction: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+export default function GallerySearchForm({
+  searchAction,
+}: GallerySearchProps) {
   return (
     <>
       <div>
