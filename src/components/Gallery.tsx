@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { getArtworks } from "../data/GetArtworks";
 import type { ArtworkType } from "../_types";
 import { ArtworkSchema } from "../_schemas";
+import ModalDetails from "./ModalDetails";
 
 export default function Gallery() {
   const [validArtworks, setValidArtworks] = useState<ArtworkType[]>([]);
   const [invalidArtworks, setInvalidArtworks] = useState<any[]>([]);
+  const [id, setId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchArtworksData = async () => {
@@ -34,7 +36,6 @@ export default function Gallery() {
       // Ergebnis setzen
       setValidArtworks(valids);
       setInvalidArtworks(invalids);
-
     };
 
     fetchArtworksData();
@@ -42,11 +43,16 @@ export default function Gallery() {
 
   return (
     <>
+      <ModalDetails id={id} />
+
       {validArtworks.length === 0 ? (
-        <p>Lade Daten...</p>
+        <p className="mb-10 p-5">Lade Daten...</p>
       ) : (
         validArtworks.map((artwork) => (
           <article
+            onClick={() => {
+              setId(artwork.id);
+            }}
             key={artwork.id}
             className="p-5  m-5 bg-white text-black rounded-xl"
           >
@@ -74,22 +80,34 @@ export default function Gallery() {
         Kunstwerke mit unvollständigem Datensatz (Bezüglich der fehlenden
         "Description"):
       </div>
-
-      {invalidArtworks.length === 0 ? (
-        <p>Lade Daten...</p>
-      ) : (
-        invalidArtworks.map((invalidArtwork) => (
-          <article
-            key={invalidArtwork.article.id}
-            className="p-5  m-5 bg-white text-black rounded-xl"
-          >
-            <h3 className="font-bold text-xl">
-              {invalidArtwork.article.title}
-            </h3>
-            <p>{invalidArtwork.article.artist_display}</p>
-          </article>
-        ))
-      )}
+      <div className="grid grid-cols-2">
+        {invalidArtworks.length === 0 ? (
+          <p>Lade Daten...</p>
+        ) : (
+          invalidArtworks.map((invalidArtwork) => (
+            <article
+              onClick={() => {
+                setId(invalidArtwork.article.id);
+              }}
+              key={invalidArtwork.article.id}
+              className="p-5 m-5 bg-white text-black rounded-xl grid grid-cols-[200px_1fr]"
+            >
+              <div className="">
+                <img
+                  className="max-h-[100px] max-w-[100px] object-contain"
+                  src={`https://www.artic.edu/iiif/2/${invalidArtwork.article.image_id}/full/843,/0/default.jpg`}
+                />
+              </div>
+              <div>
+                <h3 className="font-bold text-xl">
+                  {invalidArtwork.article.title}
+                </h3>
+                <p>{invalidArtwork.article.artist_display}</p>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
     </>
   );
 }

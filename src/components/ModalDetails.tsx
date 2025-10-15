@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function ModalDetails({ id }: { id: number | null }) {
   const infoModal = useRef<HTMLDialogElement | null>(null);
-  const [detailInfos, setDetailInfos] = useState();
+  const [detailInfos, setDetailInfos] = useState<object[]>();
 
   useEffect(() => {
     if (!id || !infoModal.current) return;
