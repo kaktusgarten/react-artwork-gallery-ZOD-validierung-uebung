@@ -60,7 +60,7 @@ export default function Gallery() {
                 setId(artwork.id);
               }}
               key={artwork.id}
-              className="p-5 pb-10 m-5 bg-white text-black rounded-xl"
+              className="p-5 pb-10 m-5 bg-white text-black rounded-xl cursor-pointer"
             >
               <h3 className="font-bold text-2xl pb-3 font-serif">
                 {artwork.title}
